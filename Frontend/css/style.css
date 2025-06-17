@@ -1,0 +1,18 @@
+/* Styles généraux */
+#plateau-jeu {
+    display: grid;
+    grid-template-columns: repeat(10, 30px);
+    grid-template-rows: repeat(19, 30px);
+    gap: 1px;
+    background-color: #111;
+}
+
+.case {
+    width: 30px;
+    height: 30px;
+    background-color: #222;
+}
+
+.case.active {
+    background-color: red;
+}
