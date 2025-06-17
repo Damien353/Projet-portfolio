@@ -81,6 +81,24 @@ function melangerFormes() { // sac aléatoire "7-bag"
   sac = [...formes].sort(() => Math.random() - 0.5);
 }
 
+function tournerPiece(piece) {
+  const ancienneForme = piece.shape;
+  const nouvelleForme = [];
+
+  for (let col = 0; col < ancienneForme[0].length; col++) {
+    const nouvelleLigne = [];
+    for (let row = ancienneForme.length - 1; row >= 0; row--) {
+      nouvelleLigne.push(ancienneForme[row][col]);
+    }
+    nouvelleForme.push(nouvelleLigne);
+  }
+
+  //Vérifie si collision ou non après rotation
+  if (!detectCollision({ shape: nouvelleForme, x: piece.x, y: piece.y}, piece.x, piece.y)) {
+    piece.shape = nouvelleForme;
+  }
+}
+
 function detectCollision(piece, x, y) {
   for (let i = 0; i < piece.shape.length; i++) {
     for (let j = 0; j < piece.shape[i].length; j++) {
@@ -126,8 +144,8 @@ document.addEventListener("keydown", (event) => {
     nouvelleX += 1;
   } else if (event.key === "ArrowDown") {
     nouvelleY += 1;
-  } else {
-    return; // Ignorer autres touches
+  } else if (event.key === "ArrowUp") {
+    tournerPiece(pieceActuelle); // Pour la rotation
   }
 
   // Vérifie s'il y a collision à nouvelle position
