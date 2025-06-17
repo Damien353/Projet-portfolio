@@ -10,7 +10,9 @@ const formes = [
   [[0, 1, 1], [1, 1, 0]], // Z
   [[1, 0, 0], [1, 1, 1]], // J
   [[0, 0, 1], [1, 1, 1]], // L
-]
+];
+
+let sac = [];
 
 // Initialisation du plateau de jeu (matrice 2D)
 let plateau = Array.from({ length: NB_LIGNES }, () =>
@@ -20,9 +22,11 @@ Array(NB_COLONNES).fill(0)
 let pieceActuelle = genererNouvellePiece();
 
 function genererNouvellePiece() {
-  const index = Math.floor(Math.random() * formes.length);
+  if (sac.length === 0) melangerFormes(); // remplit si vide
+  const shape = sac.pop(); // tire une forme du sac
+  console.log("Nouvelle pièce générée :", shape); //temporaire
   return {
-    shape: formes[index],
+    shape,
     x: 3,
     y: 0
   };
@@ -71,6 +75,10 @@ function drawPlateau() {
       conteneur.appendChild(div);
     }
   }
+}
+
+function melangerFormes() { // sac aléatoire "7-bag"
+  sac = [...formes].sort(() => Math.random() - 0.5);
 }
 
 function detectCollision(piece, x, y) {
