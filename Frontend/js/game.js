@@ -12,11 +12,17 @@ const formes = [
   [[0, 0, 1], [1, 1, 1]], // L
 ];
 
+const startBtn = document.getElementById("start-btn");
+const pauseBtn = document.getElementById("pause-btn");
+pauseBtn.disabled = true;
+
+
 let sac = [];
 
 let intervalId = null;
 let score = 0;
 let enCours = false;
+let enPause = false;
 
 // Initialisation du plateau de jeu (matrice 2D)
 let plateau = Array.from({ length: NB_LIGNES }, () =>
@@ -194,37 +200,69 @@ function demarrerPartie() {
   score = 0;
   document.getElementById("score").textContent = "score : 0"; // reset visuel
   enCours = true;
+  enPause = false;
 
   if (intervalId !== null) {
     clearInterval(intervalId);
   }
+  // Redémarre la boucle de jeu
+  intervalId = setInterval(boucleJeu, 500);
+  pauseBtn.disabled = false; // Active bouton pause
+  pauseBtn.textContent = "Pause";
+  startBtn.textContent = "Restart"
+}
 
-  intervalId = setInterval(() => {
-    if (!detectCollision(pieceActuelle, pieceActuelle.x, pieceActuelle.y +1)) {
-      pieceActuelle.y += 1;
-    } else {
-      // Fixe la pièce dans le plateau définitivement
-      fixerPieceDansPlateau(pieceActuelle);
-      const nbLignes = supprimerLignesCompletes();
-      if (nbLignes > 0) {
-        mettreAJourScore(nbLignes);
-      }
-
-      // Génère une nouvelle pièce
-      pieceActuelle = genererNouvellePiece();
-      if (estGameOver(pieceActuelle)) {
-        alert("Game Over !");
-        clearInterval(intervalId); //Stop le jeu
-        enCours = false;
-      }
+function boucleJeu() {
+  if (!detectCollision(pieceActuelle, pieceActuelle.x, pieceActuelle.y +1)) {
+    pieceActuelle.y += 1;
+  } else {
+    // Fixe la pièce dans le plateau définitivement
+    fixerPieceDansPlateau(pieceActuelle);
+    const nbLignes = supprimerLignesCompletes();
+    if (nbLignes > 0) {
+      mettreAJourScore(nbLignes);
     }
+
+    // Génère une nouvelle pièce
+    pieceActuelle = genererNouvellePiece();
+    if (estGameOver(pieceActuelle)) {
+      alert("Game Over !");
+      pauseBtn.disabled = true;
+      startBtn.textContent = "Démarrer"
+      clearInterval(intervalId); //Stop le jeu
+      enCours = false;
+      return;
+    }
+  }
 
     drawPlateau();
     dessinerPiece();
-  }, 500); // toutes les 500ms
-  
-  drawPlateau();
-  dessinerPiece();
+  }
+
+function mettreEnPause() {
+  if (!enCours) return;
+  enPause = true;
+  clearInterval(intervalId);
 }
+
+function reprendrePartie() {
+  if (!enCours) return;
+  enPause = false;
+  intervalId = setInterval(boucleJeu, 500);
+}
+
+startBtn.addEventListener("click", () => {
+  demarrerPartie();
+});
+
+pauseBtn.addEventListener("click", () => {
+  if (!enPause) {
+    mettreEnPause();
+    pauseBtn.textContent = "Reprendre";
+  } else {
+    reprendrePartie();
+    pauseBtn.textContent = "Pause";
+  }
+});
 
 document.getElementById("start-btn").addEventListener("click", demarrerPartie);
