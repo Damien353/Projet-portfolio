@@ -14,7 +14,9 @@ const formes = [
 
 let sac = [];
 
+let intervalId = null;
 let score = 0;
+let enCours = false;
 
 // Initialisation du plateau de jeu (matrice 2D)
 let plateau = Array.from({ length: NB_LIGNES }, () =>
@@ -185,28 +187,44 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-const intervalId = setInterval(() => {
-  if (!detectCollision(pieceActuelle, pieceActuelle.x, pieceActuelle.y +1)) {
-    pieceActuelle.y += 1;
-  } else {
-    // Fixe la pièce dans le plateau définitivement
-    fixerPieceDansPlateau(pieceActuelle);
-    const nbLignes = supprimerLignesCompletes();
-    if (nbLignes > 0) {
-      mettreAJourScore(nbLignes);
-    }
+function demarrerPartie() {
+  // Réinitialisations
+  plateau = Array.from({ length: NB_LIGNES }, () => Array(NB_COLONNES).fill(0));
+  pieceActuelle = genererNouvellePiece();
+  score = 0;
+  document.getElementById("score").textContent = "score : 0"; // reset visuel
+  enCours = true;
 
-    // Génère une nouvelle pièce
-    pieceActuelle = genererNouvellePiece();
-    if (estGameOver(pieceActuelle)) {
-      alert("Game Over !");
-      clearInterval(intervalId); //Stop le jeu
-    }
+  if (intervalId !== null) {
+    clearInterval(intervalId);
   }
 
+  intervalId = setInterval(() => {
+    if (!detectCollision(pieceActuelle, pieceActuelle.x, pieceActuelle.y +1)) {
+      pieceActuelle.y += 1;
+    } else {
+      // Fixe la pièce dans le plateau définitivement
+      fixerPieceDansPlateau(pieceActuelle);
+      const nbLignes = supprimerLignesCompletes();
+      if (nbLignes > 0) {
+        mettreAJourScore(nbLignes);
+      }
+
+      // Génère une nouvelle pièce
+      pieceActuelle = genererNouvellePiece();
+      if (estGameOver(pieceActuelle)) {
+        alert("Game Over !");
+        clearInterval(intervalId); //Stop le jeu
+        enCours = false;
+      }
+    }
+
+    drawPlateau();
+    dessinerPiece();
+  }, 500); // toutes les 500ms
+  
   drawPlateau();
   dessinerPiece();
-}, 500); // toutes les 500ms
+}
 
-//Appel au chargement de la page
-drawPlateau();
+document.getElementById("start-btn").addEventListener("click", demarrerPartie);
