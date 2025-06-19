@@ -157,6 +157,10 @@ function mettreAJourScore(nbLignes) {
   scoreDiv.textContent = "score : " + score;
 }
 
+function estGameOver(piece) {
+  return detectCollision(piece, piece.x, piece.y);
+}
+
 document.addEventListener("keydown", (event) => {
   let nouvelleX = pieceActuelle.x;
   let nouvelleY = pieceActuelle.y;
@@ -182,7 +186,7 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-setInterval(() => {
+const intervalId = setInterval(() => {
   if (!detectCollision(pieceActuelle, pieceActuelle.x, pieceActuelle.y +1)) {
     pieceActuelle.y += 1;
   } else {
@@ -195,6 +199,10 @@ setInterval(() => {
 
     // Génère une nouvelle pièce
     pieceActuelle = genererNouvellePiece();
+    if (estGameOver(pieceActuelle)) {
+      alert("Game Over !");
+      clearInterval(intervalId); //Stop le jeu
+    }
   }
 
   drawPlateau();
