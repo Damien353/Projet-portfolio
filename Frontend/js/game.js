@@ -140,7 +140,6 @@ function supprimerLignesCompletes() {
   let lignesSupprimees = 0;
 
   for (let y = NB_LIGNES - 1; y >= 0; y--) {
-    console.log("Ligne", y, plateau[y]); // Ajout temporaire
     if (plateau[y].every(cell => cell === 1)) {
       plateau.splice(y, 1); // supprime la ligne
       plateau.unshift(new Array(NB_COLONNES).fill(0)); // ajoute une ligne vide en haut
