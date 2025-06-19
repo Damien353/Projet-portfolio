@@ -151,6 +151,12 @@ function supprimerLignesCompletes() {
   return lignesSupprimees;
 }
 
+function mettreAJourScore(nbLignes) {
+  score += nbLignes * 100;
+  const scoreDiv = document.getElementById("score");
+  scoreDiv.textContent = "score : " + score;
+}
+
 document.addEventListener("keydown", (event) => {
   let nouvelleX = pieceActuelle.x;
   let nouvelleY = pieceActuelle.y;
@@ -183,7 +189,9 @@ setInterval(() => {
     // Fixe la pièce dans le plateau définitivement
     fixerPieceDansPlateau(pieceActuelle);
     const nbLignes = supprimerLignesCompletes();
-    console.log("lignes supprimées :", nbLignes);
+    if (nbLignes > 0) {
+      mettreAJourScore(nbLignes);
+    }
 
     // Génère une nouvelle pièce
     pieceActuelle = genererNouvellePiece();

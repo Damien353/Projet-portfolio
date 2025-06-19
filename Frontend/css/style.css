@@ -16,3 +16,17 @@
 .case.active {
     background-color: red;
 }
+
+#score {
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    margin: 10px 0;
+}
+
+#conteneur-jeu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
