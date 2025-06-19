@@ -14,6 +14,8 @@ const formes = [
 
 let sac = [];
 
+let score = 0;
+
 // Initialisation du plateau de jeu (matrice 2D)
 let plateau = Array.from({ length: NB_LIGNES }, () =>
 Array(NB_COLONNES).fill(0)
@@ -138,6 +140,7 @@ function supprimerLignesCompletes() {
   let lignesSupprimees = 0;
 
   for (let y = NB_LIGNES - 1; y >= 0; y--) {
+    console.log("Ligne", y, plateau[y]); // Ajout temporaire
     if (plateau[y].every(cell => cell === 1)) {
       plateau.splice(y, 1); // supprime la ligne
       plateau.unshift(new Array(NB_COLONNES).fill(0)); // ajoute une ligne vide en haut
@@ -179,6 +182,8 @@ setInterval(() => {
   } else {
     // Fixe la pièce dans le plateau définitivement
     fixerPieceDansPlateau(pieceActuelle);
+    const nbLignes = supprimerLignesCompletes();
+    console.log("lignes supprimées :", nbLignes);
 
     // Génère une nouvelle pièce
     pieceActuelle = genererNouvellePiece();
