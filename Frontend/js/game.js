@@ -134,6 +134,20 @@ function fixerPieceDansPlateau(piece) {
   }
 }
 
+function supprimerLignesCompletes() {
+  let lignesSupprimees = 0;
+
+  for (let y = NB_LIGNES - 1; y >= 0; y--) {
+    if (plateau[y].every(cell => cell === 1)) {
+      plateau.splice(y, 1); // supprime la ligne
+      plateau.unshift(new Array(NB_COLONNES).fill(0)); // ajoute une ligne vide en haut
+      lignesSupprimees++;
+      y++; //re-vérifie la ligne car tout descend
+    }
+  }
+  return lignesSupprimees;
+}
+
 document.addEventListener("keydown", (event) => {
   let nouvelleX = pieceActuelle.x;
   let nouvelleY = pieceActuelle.y;
