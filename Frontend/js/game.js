@@ -23,6 +23,8 @@ let intervalId = null;
 let score = 0;
 let enCours = false;
 let enPause = false;
+let vitesse = 500; // en millisecondes
+
 
 // Initialisation du plateau de jeu (matrice 2D)
 let plateau = Array.from({ length: NB_LIGNES }, () =>
@@ -164,6 +166,12 @@ function mettreAJourScore(nbLignes) {
   scoreDiv.textContent = "score : " + score;
 }
 
+function mettreAJourVitesse(nbLignes) {
+  vitesse = Math.max(100, vitesse - nbLignes * 20); // On peut ajuster ici pour autre rythme
+  clearInterval(intervalId);
+  intervalId = setInterval(boucleJeu, vitesse);
+}
+
 function estGameOver(piece) {
   return detectCollision(piece, piece.x, piece.y);
 }
@@ -201,12 +209,13 @@ function demarrerPartie() {
   document.getElementById("score").textContent = "score : 0"; // reset visuel
   enCours = true;
   enPause = false;
+  vitesse = 500;
 
   if (intervalId !== null) {
     clearInterval(intervalId);
   }
   // Redémarre la boucle de jeu
-  intervalId = setInterval(boucleJeu, 500);
+  intervalId = setInterval(boucleJeu, vitesse);
   pauseBtn.disabled = false; // Active bouton pause
   pauseBtn.textContent = "Pause";
   startBtn.textContent = "Restart"
@@ -221,6 +230,7 @@ function boucleJeu() {
     const nbLignes = supprimerLignesCompletes();
     if (nbLignes > 0) {
       mettreAJourScore(nbLignes);
+      mettreAJourVitesse(nbLignes);
     }
 
     // Génère une nouvelle pièce
