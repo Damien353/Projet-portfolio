@@ -12,6 +12,16 @@ const formes = [
   [[0, 0, 1], [1, 1, 1]], // L
 ];
 
+const couleurs = [
+  "cyan",     // I
+  "yellow",   // O
+  "purple",   // T
+  "green",    // S
+  "red",      // Z
+  "blue",     // J
+  "orange"    // L
+];
+
 const startBtn = document.getElementById("start-btn");
 const pauseBtn = document.getElementById("pause-btn");
 pauseBtn.disabled = true;
@@ -35,17 +45,19 @@ let pieceActuelle = genererNouvellePiece();
 
 function genererNouvellePiece() {
   if (sac.length === 0) melangerFormes(); // remplit si vide
-  const shape = sac.pop(); // tire une forme du sac
-  console.log("Nouvelle pièce générée :", shape); //temporaire
+  const index = sac.pop(); // tire index au lieu d'une forme directement
+  const shape = formes[index];
+  const couleur = couleurs[index];
   return {
     shape,
+    couleur,
     x: 3,
     y: 0
   };
 }
 
 function dessinerPiece() {
-  const { shape, x, y} = pieceActuelle;
+  const { shape, x, y, couleur } = pieceActuelle;
   const conteneur = document.getElementById("plateau-jeu");
   const cases = conteneur.children;
 
@@ -58,6 +70,7 @@ function dessinerPiece() {
         if (posY >= 0 && posY < NB_LIGNES && posX >= 0 && posX < NB_COLONNES) {
           const index = posY * NB_COLONNES + posX;
           cases[index].classList.add("active");
+          cases[index].style.backgroundColor = pieceActuelle.couleur;
         }
       }
     }
@@ -80,8 +93,9 @@ function drawPlateau() {
       const div = document.createElement("div");
       div.classList.add("case");
 
-      if (plateau[y][x] === 1) {
+      if (plateau[y][x] !== 0) {
         div.classList.add("active");
+        div.style.backgroundColor = plateau[y][x];
       }
 
       conteneur.appendChild(div);
@@ -90,7 +104,7 @@ function drawPlateau() {
 }
 
 function melangerFormes() { // sac aléatoire "7-bag"
-  sac = [...formes].sort(() => Math.random() - 0.5);
+  sac = [0, 1, 2, 3, 4, 5, 6].sort(() => Math.random() - 0.5);
 }
 
 function tournerPiece(piece) {
@@ -122,7 +136,7 @@ function detectCollision(piece, x, y) {
         if (
           newY >= NB_LIGNES || // touche le bas
           newX < 0 || newX >= NB_COLONNES || // hors bords horizontaux
-          newY >= 0 && plateau[newY][newX] === 1 // touche une autre pièce
+          newY >= 0 && plateau[newY][newX] !== 0 // touche une autre pièce
         ) {
           return true;
         }
@@ -139,7 +153,7 @@ function fixerPieceDansPlateau(piece) {
         const y = piece.y + row;
         const x = piece.x + col;
         if (y >= 0 && y < NB_LIGNES && x >= 0 && x < NB_COLONNES) {
-          plateau[y][x] = 1;
+          plateau[y][x] = piece.couleur;
         }
       }
     }
@@ -150,7 +164,7 @@ function supprimerLignesCompletes() {
   let lignesSupprimees = 0;
 
   for (let y = NB_LIGNES - 1; y >= 0; y--) {
-    if (plateau[y].every(cell => cell === 1)) {
+    if (plateau[y].every(cell => cell !== 0)) {
       plateau.splice(y, 1); // supprime la ligne
       plateau.unshift(new Array(NB_COLONNES).fill(0)); // ajoute une ligne vide en haut
       lignesSupprimees++;
