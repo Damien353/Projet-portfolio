@@ -250,11 +250,11 @@ function boucleJeu() {
     // Génère une nouvelle pièce
     pieceActuelle = genererNouvellePiece();
     if (estGameOver(pieceActuelle)) {
-      alert("Game Over !");
-      pauseBtn.disabled = true;
-      startBtn.textContent = "Démarrer"
-      clearInterval(intervalId); //Stop le jeu
+      clearInterval(intervalId);
       enCours = false;
+      pauseBtn.disabled = true;
+      startBtn.textContent = "Démarrer";
+      finPartie();
       return;
     }
   }
@@ -273,6 +273,29 @@ function reprendrePartie() {
   if (!enCours) return;
   enPause = false;
   intervalId = setInterval(boucleJeu, 500);
+}
+
+function finPartie() {
+  const pseudo = prompt("Partie terminée ! Entrez votre pseudo :");
+  if (!pseudo) return;
+
+  fetch("http://localhost:3000/scores", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ pseudo, score }),
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error("Erreur lors de l'envoi du score");
+      return res.json();
+    })
+    .then((data) => {
+      console.log("Score enregistré avec succès", data);
+    })
+    .catch((err) => {
+      console.error("Erreur:", err);
+    });
 }
 
 startBtn.addEventListener("click", () => {
