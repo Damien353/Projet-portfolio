@@ -1,5 +1,5 @@
 // logique tetris
-import { envoyerScore } from ".Frontend/js/api.js";
+import { envoyerScore, getTopScores } from "./api.js";
 
 const NB_COLONNES = 10;
 const NB_LIGNES = 19;
@@ -284,11 +284,25 @@ function finPartie() {
   envoyerScore(pseudo, score)
     .then(() => {
       alert("Score enregistré avec succès !");
+      afficherClassement();
     })
     .catch(() => {
       alert("Erreur lors de l'envoi du score.");
     });
 }
+
+async function afficherClassement() {
+  const liste = document.getElementById("liste-scores");
+  liste.innerHTML = ""; // Nettoie avant de recharger
+
+  const scores = await getTopScores();
+  scores.forEach(score => {
+    const li = document.createElement("li");
+    li.textContent = `${score.pseudo} - ${score.score}`;
+    liste.appendChild(li);
+  });
+}
+
 
 startBtn.addEventListener("click", () => {
   demarrerPartie();

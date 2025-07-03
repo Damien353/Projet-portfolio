@@ -7,8 +7,8 @@ CREATE TABLE IF NOT EXISTS scores (
 );
 
 -- Insertion de données de test
-INSERT INTO scores (pseudo, score) VALUE ('Alice', 1200);
-INSERT INTO scores (pseudo, score) VALUE ('Dylan', 850);
-INSERT INTO scores (pseudo, score) VALUE ('Charles', 1400);
-INSERT INTO scores (pseudo, score) VALUE ('Bob', 900);
-INSERT INTO scores (pseudo, score) VALUE ('TestUser', 300);
+INSERT INTO scores (pseudo, score) VALUES ('Alice', 1200);
+INSERT INTO scores (pseudo, score) VALUES ('Dylan', 850);
+INSERT INTO scores (pseudo, score) VALUES ('Charles', 1400);
+INSERT INTO scores (pseudo, score) VALUES ('Bob', 900);
+INSERT INTO scores (pseudo, score) VALUES ('TestUser', 300);

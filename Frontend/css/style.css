@@ -30,3 +30,11 @@
     align-items: center;
     margin-top: 20px;
 }
+
+#classement {
+  margin-top: 20px;
+  background: #f2f2f2;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 250px;
+}
