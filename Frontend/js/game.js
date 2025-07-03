@@ -277,18 +277,21 @@ function reprendrePartie() {
   intervalId = setInterval(boucleJeu, 500);
 }
 
-function finPartie() {
-  const pseudo = prompt("Partie terminée ! Entrez votre pseudo :");
-  if (!pseudo) return;
+async function finPartie() {
+  const pseudo = prompt("Game Over ! Entre ton pseudo pour enregistrer ton score :");
+  if (!pseudo) {
+    alert("Score non enregistré car pseudo non fourni.");
+    return;
+  }
 
-  envoyerScore(pseudo, score)
-    .then(() => {
-      alert("Score enregistré avec succès !");
-      afficherClassement();
-    })
-    .catch(() => {
-      alert("Erreur lors de l'envoi du score.");
-    });
+  try {
+    await envoyerScore(pseudo, score);
+    alert("Score envoyé !");
+    const topScores = await getTopScores();
+    afficherTopScores(topScores);
+  } catch (err) {
+    alert("Erreur lors de l'envoi ou la récupération des scores : " + err.message);
+  }
 }
 
 async function afficherClassement() {
@@ -303,6 +306,15 @@ async function afficherClassement() {
   });
 }
 
+function afficherTopScores(scores) {
+  const liste = document.getElementById("liste-scores");
+  liste.innerHTML = ""; // Vide la liste avant mise à jour
+  scores.forEach(({ pseudo, score }) => {
+    const li = document.createElement("li");
+    li.textContent = `${pseudo} : ${score}`;
+    liste.appendChild(li);
+  });
+}
 
 startBtn.addEventListener("click", () => {
   demarrerPartie();

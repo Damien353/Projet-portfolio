@@ -10,6 +10,9 @@ app.use(express.json());
 app.use('/scores', scoresRoutes);
 
 const PORT = process.env.PORT || 3000;
+const path = require('path');
+
+app.use(express.static(path.join(__dirname, '../Frontend')));
 app.listen(PORT, () => {
   console.log(`Serveur démarré sur http://localhost:${PORT}`);
 });
