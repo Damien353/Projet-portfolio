@@ -9,6 +9,8 @@ const authRouter = require('./routes/auth');
 app.use(cors());
 app.use(express.json());
 
+app.use(express.static('Frontend'));
+
 app.use('/scores', scoresRoutes);
 app.use('/api', authRoutes);
 app.use('/auth', authRouter);
