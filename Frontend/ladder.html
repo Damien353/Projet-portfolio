@@ -4,48 +4,88 @@
 <head>
   <meta charset="UTF-8">
   <title>Classement Tetris</title>
+  <link rel="stylesheet" href="css/style.css" />
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #121212;
-      color: #ffffff;
-      padding: 20px;
+    body.dark-theme {
+      background-color: #0a0a0a;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 60px 20px;
+      text-align: center;
     }
 
     h1 {
-      text-align: center;
+      font-size: 2.5rem;
       margin-bottom: 30px;
+      color: #00f6ff;
+      text-shadow: 0 0 15px #00f6ff;
     }
 
     table {
-      width: 80%;
+      width: 90%;
+      max-width: 800px;
       margin: 0 auto;
       border-collapse: collapse;
-      background-color: #1e1e1e;
+      background-color: #111;
+      box-shadow: 0 0 15px #0ff;
+      border-radius: 12px;
+      overflow: hidden;
     }
 
     th, td {
-      padding: 12px 15px;
-      border: 1px solid #333;
+      padding: 14px 18px;
+      border: 1px solid #222;
       text-align: center;
+      font-size: 1rem;
     }
 
     th {
-      background-color: #2e2e2e;
+      background-color: #0f0f0f;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff;
     }
 
     tr:nth-child(even) {
-      background-color: #252525;
+      background-color: #1a1a1a;
+    }
+
+    tr:nth-child(odd) {
+      background-color: #151515;
+    }
+
+    #nav-retour {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    #nav-retour button {
+      background-color: transparent;
+      border: 2px solid #0ff;
+      color: #0ff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      text-shadow: 0 0 5px #0ff;
+      box-shadow: 0 0 10px #0ff inset, 0 0 5px #0ff;
+      transition: 0.2s;
+    }
+
+    #nav-retour button:hover {
+      background-color: rgba(0, 255, 255, 0.1);
+      box-shadow: 0 0 15px #0ff, 0 0 5px #0ff inset;
     }
   </style>
 </head>
-<body>
-    <div id="nav-retour">
-        <button onclick="window.location.href='index.html'">Retour au jeu</button>
-    </div>
-
+<body class="dark-theme">
+  <div id="nav-retour">
+    <button onclick="window.location.href='index.html'">Retour au jeu</button>
+  </div>
 
   <h1>Classement Tetris</h1>
+
   <table>
     <thead>
       <tr>
@@ -56,11 +96,10 @@
       </tr>
     </thead>
     <tbody id="score-table-body">
-      <!-- Les scores s'afficheront ici -->
+      <!-- Les scores seront insérés ici -->
     </tbody>
   </table>
 
-  <!-- Lien vers fichier JS -->
   <script src="js/ladder.js"></script>
 </body>
 </html>

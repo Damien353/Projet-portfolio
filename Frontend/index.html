@@ -2,53 +2,57 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Tetris</title>
-    <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tetris</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
-    <!-- Bouton vers classement -->
-    <div id="nav-classement" style="position: absolute; top: 20px; right: 20px;">
-        <a href="ladder.html">
-            <button>Voir le classement</button>
-        </a>
+<body class="dark-theme">
+
+  <!-- Navigation -->
+  <nav class="top-bar">
+    <a href="ladder.html" class="btn neon-btn">Voir le classement</a>
+    <button id="logout-btn" class="btn neon-btn hidden">Déconnexion</button>
+  </nav>
+
+  <!-- Connexion / Inscription -->
+  <section id="auth-container" class="card">
+    <h2 class="section-title">Connexion / Inscription</h2>
+    <form id="auth-form" class="form">
+      <label for="username">Pseudo :</label>
+      <input type="text" id="username" name="username" required />
+
+      <label for="password">Mot de passe :</label>
+      <input type="password" id="password" name="password" required />
+
+      <div class="form-buttons">
+        <button type="submit" id="submit-btn" class="btn neon-btn">Se connecter</button>
+        <button type="button" id="toggle-register" class="btn neon-btn">Créer un compte</button>
+      </div>
+    </form>
+    <div id="auth-message" class="auth-error"></div>
+  </section>
+
+  <!-- Zone de jeu -->
+  <main id="conteneur-jeu" class="hidden">
+    <h1 class="game-title neon-text">TETRIS</h1>
+    <div id="score" class="score-box">Score : 0</div>
+
+    <section id="classement" class="leaderboard">
+      <h2>Top 10 Scores</h2>
+      <ol id="liste-scores"></ol>
+    </section>
+
+    <div id="plateau-jeu" class="plateau"></div>
+
+    <div class="game-controls">
+      <button id="start-btn" class="btn neon-btn">Start</button>
+      <button id="pause-btn" class="btn neon-btn" disabled>Pause</button>
     </div>
+  </main>
 
-    <button id="logout-btn" style="display: none;">Déconnexion</button>
-
-    <!-- Conteneur formulaire connexion / inscription -->
-    <div id="auth-container">
-        <h2>Connexion / Inscription</h2>
-        <form id="auth-form">
-            <label for="username">Pseudo :</label><br />
-            <input type="text" id="username" name="username" required /><br />
-            <label for="password">Mot de passe :</label><br />
-            <input type="password" id="password" name="password" required /><br /><br />
-            <button type="submit" id="submit-btn">Se connecter</button>
-            <button type="button" id="toggle-register">Créer un compte</button>
-        </form>
-        <div id="auth-message" style="color: red; margin-top: 10px;"></div>
-    </div>
-
-    <!-- Bouton déconnexion (caché par défaut) -->
-    <button id="logout-btn" style="display:none; position: absolute; top: 20px; left: 20px;">Déconnexion</button>
-
-    <!-- Conteneur du jeu (caché par défaut par CSS) -->
-    <div id="conteneur-jeu" style="display:none;">
-        <h1>Tetris</h1>
-        <div id="score">Score : 0</div>
-        <div id="classement">
-            <h2>Top 10 Scores</h2>
-            <ol id="liste-scores"></ol>
-        </div>
-        <div id="plateau-jeu"></div>
-        <button id="start-btn">Start</button>
-        <button id="pause-btn" disabled>Pause</button>
-    </div>
-
-    <!-- Scripts -->
-    <script type="module" src="./js/game.js"></script>
-    <script src="./js/auth.js"></script>
+  <!-- Scripts -->
+  <script type="module" src="./js/game.js"></script>
+  <script src="./js/auth.js"></script>
 </body>
 </html>
