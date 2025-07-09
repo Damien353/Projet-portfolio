@@ -1,24 +1,17 @@
 // requêtes fetch vers backend
-export async function envoyerScore(pseudo, score) {
-  try {
-    const response = await fetch("http://localhost:3000/scores", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ pseudo, score }),
-    });
+export async function envoyerScore(score, token) {
+  const response = await fetch("/scores", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    },
+    body: JSON.stringify({ score }),
+  });
 
-    if (!response.ok) {
-      throw new Error("Erreur lors de l'envoi du score");
-    }
-
-    const data = await response.json();
-    console.log("Score enregistré :", data);
-    return data;
-  } catch (error) {
-    console.error("Erreur réseau :", error);
-    throw error;
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.error || "Erreur lors de l'envoi du score");
   }
 }
 

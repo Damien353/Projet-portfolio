@@ -278,21 +278,23 @@ function reprendrePartie() {
 }
 
 async function finPartie() {
-  const pseudo = prompt("Game Over ! Entre ton pseudo pour enregistrer ton score :");
-  if (!pseudo) {
-    alert("Score non enregistré car pseudo non fourni.");
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    alert("Connecte-toi pour enregistrer ton score.");
     return;
   }
 
   try {
-    await envoyerScore(pseudo, score);
-    alert("Score envoyé !");
+    await envoyerScore(score, token);
+    alert("Score enregistré !");
     const topScores = await getTopScores();
     afficherTopScores(topScores);
   } catch (err) {
     alert("Erreur lors de l'envoi ou la récupération des scores : " + err.message);
   }
 }
+
 
 async function afficherClassement() {
   const liste = document.getElementById("liste-scores");

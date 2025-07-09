@@ -1,4 +1,4 @@
-/* Styles généraux */
+/* === STYLES GÉNÉRAUX === */
 #plateau-jeu {
     display: grid;
     grid-template-columns: repeat(10, 30px);
@@ -25,16 +25,128 @@
 }
 
 #conteneur-jeu {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     margin-top: 20px;
 }
 
+/* === STYLES POUR index.html (page du jeu) === */
 #classement {
   margin-top: 20px;
   background: #f2f2f2;
   padding: 10px;
   border-radius: 10px;
   max-width: 250px;
+}
+
+#nav-classement {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+#nav-classement button {
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#nav-classement button:hover {
+  background-color: #388E3C;
+}
+
+#logout-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  background-color: #e53935;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#logout-btn:hover {
+  background-color: #c62828;
+}
+
+#auth-container {
+  margin: 20px auto;
+  padding: 15px;
+  max-width: 300px;
+  background: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.15);
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+#auth-form input {
+  width: 90%;
+  padding: 8px;
+  margin: 5px 0;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#auth-form button {
+  margin: 5px 5px 0 5px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  color: white;
+}
+
+#login-btn {
+  background-color: #4CAF50;
+}
+
+#login-btn:hover {
+  background-color: #388E3C;
+}
+
+#register-btn {
+  background-color: #2196F3;
+}
+
+#register-btn:hover {
+  background-color: #1565C0;
+}
+
+#auth-message {
+  margin-top: 10px;
+  color: red;
+  font-weight: bold;
+}
+
+
+/* === STYLES POUR ladder.html (page du classement) === */
+#nav-retour {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+#nav-retour button {
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  background-color: #1976D2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#nav-retour button:hover {
+  background-color: #0D47A1;
 }

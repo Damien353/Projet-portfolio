@@ -12,12 +12,14 @@ const SECRET_KEY = 'secret123';
 router.post('/register', async (req, res) => {
   const { username, password } = req.body;
 
+  console.log("Tentative d'inscription :", username);
   if (!username || !password) {
     return res.status(400).json({ error: 'Username et mot de passe requis.' });
   }
 
   try {
-    const existingUser = await db.get('SELECT * FROM users WHERE username = ?', [username]);
+    const existingUser = await getAsync('SELECT * FROM users WHERE username = ?', [username]);
+    console.log("Résultat SELECT :", existingUser);
     if (existingUser) {
       return res.status(409).json({ error: 'Ce pseudo est déjà utilisé.' });
     }
@@ -25,7 +27,21 @@ router.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     await db.run('INSERT INTO users (username, password_hash) VALUES (?, ?)', [username, hashedPassword]);
 
-    return res.status(201).json({ message: 'Utilisateur créé avec succès.' });
+    console.log("Utilisateur ajouté avec succès :", username);
+    // Récupère le nouvel utilisateur pour générer le token
+    const newUser = await db.get('SELECT id, username FROM users WHERE username = ?', [username]);
+
+    const token = jwt.sign(
+      { id: newUser.id, username: newUser.username },
+      SECRET_KEY,
+      { expiresIn: '1h' }
+    );
+
+    return res.status(201).json({
+      message: 'Utilisateur créé avec succès.',
+      token,
+      user: newUser
+    });
 
   } catch (err) {
     console.error('Erreur à l’inscription :', err);

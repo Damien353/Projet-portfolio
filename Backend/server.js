@@ -12,7 +12,6 @@ app.use(express.json());
 app.use(express.static('Frontend'));
 
 app.use('/scores', scoresRoutes);
-app.use('/api', authRoutes);
 app.use('/auth', authRouter);
 
 const PORT = process.env.PORT || 3000;
