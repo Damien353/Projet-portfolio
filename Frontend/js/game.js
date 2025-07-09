@@ -217,6 +217,14 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+window.addEventListener("keydown", function(e) {
+  const keys = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", " "]; // espace inclus
+  if (keys.includes(e.key)) {
+    e.preventDefault();
+  }
+}, { passive: false });
+
+
 function demarrerPartie() {
   // Réinitialisations
   plateau = Array.from({ length: NB_LIGNES }, () => Array(NB_COLONNES).fill(0));
