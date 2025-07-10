@@ -1,0 +1,56 @@
+body.dark-theme {
+  background-color: #0a0a0a;
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.top-bar {
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-sizing: border-box;
+  z-index: 10;
+}
+
+.neon-btn {
+  background-color: transparent;
+  border: 2px solid #0ff;
+  color: #0ff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: 0.2s;
+  text-shadow: 0 0 5px #0ff;
+  box-shadow: 0 0 10px #0ff inset, 0 0 5px #0ff;
+}
+
+.neon-btn:hover {
+  background-color: rgba(0, 255, 255, 0.1);
+  box-shadow: 0 0 15px #0ff, 0 0 5px #0ff inset;
+}
+
+.profile-container {
+  margin-top: 120px;
+  background-color: #111;
+  padding: 30px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 12px;
+  box-shadow: 0 0 15px #0ff;
+}
+
+.profile-title {
+  font-size: 2rem;
+  color: #0ff;
+  text-shadow: 0 0 10px #0ff;
+  margin-bottom: 20px;
+}
