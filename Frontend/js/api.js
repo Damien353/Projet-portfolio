@@ -1,5 +1,12 @@
 // requêtes fetch vers backend
+import { estTokenExpire, deconnexionAuto } from './authUtils.js';
+
 export async function envoyerScore(score, token) {
+  // Vérifier si le token est expiré avant d'envoyer la requête
+  if (!token || estTokenExpire(token)) {
+    deconnexionAuto();  // supprime token + redirige
+    throw new Error("Session expirée, déconnexion automatique.");
+  }
   const response = await fetch("/scores", {
     method: "POST",
     headers: {

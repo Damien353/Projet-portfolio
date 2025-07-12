@@ -1,4 +1,8 @@
+import { verifierSessionOuRediriger } from './authUtils.js';
+
 document.addEventListener('DOMContentLoaded', () => {
+  verifierSessionOuRediriger();
+
   const token = localStorage.getItem('token');
   if (!token) {
     window.location.href = 'index.html';
