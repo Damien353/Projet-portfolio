@@ -39,17 +39,11 @@
   <!-- Zone de jeu -->
   <main id="conteneur-jeu" class="hidden">
     <h1 class="game-title neon-text">TETRIS</h1>
-    <div id="score" class="score-box">Score : 0</div>
 
-    <section id="classement" class="leaderboard">
-      <h2>Top 10 Scores</h2>
-      <ol id="liste-scores"></ol>
-    </section>
-
-    <div style="position: relative; width: max-content; margin: 0 auto;">
+    <div id="game-container">
+      <div id="score-box" class="side-panel"> score : <span id="score">0</span></div>
       <div id="plateau-jeu" class="plateau"></div>
-
-      <div id="next-piece-container" class="next-piece" style="position: absolute; top: 0; left: 105%;">
+      <div id="next-piece-container" class="next-piece side-panel">
         <h3>Prochaine pièce</h3>
         <div id="next-piece-grid" class="next-piece-grid"></div>
       </div>

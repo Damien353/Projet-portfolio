@@ -113,14 +113,6 @@ function dessinerPiece() {
   }
 }
 
-function viderPlateau() {
-  for (let y = 0; y < NB_LIGNES; y++) {
-    for (let x = 0; x < NB_COLONNES; x++) {
-      plateau[y][x] = 0;
-    }
-  }
-}
-
 function drawPlateau() {
   const conteneur = document.getElementById("plateau-jeu");
   conteneur.innerHTML = ""; // Nettoie affichage
@@ -212,8 +204,8 @@ function supprimerLignesCompletes() {
 
 function mettreAJourScore(nbLignes) {
   score += nbLignes * 100;
-  const scoreDiv = document.getElementById("score");
-  scoreDiv.textContent = "score : " + score;
+  const scoreSpan = document.getElementById("score");
+  scoreSpan.textContent = score;
 }
 
 function mettreAJourVitesse(nbLignes) {
@@ -264,7 +256,7 @@ function demarrerPartie() {
   plateau = Array.from({ length: NB_LIGNES }, () => Array(NB_COLONNES).fill(0));
   pieceActuelle = genererNouvellePiece();
   score = 0;
-  document.getElementById("score").textContent = "score : 0"; // reset visuel
+  document.getElementById("score").textContent = "0"; // reset visuel
   enCours = true;
   enPause = false;
   vitesse = 500;
@@ -340,19 +332,6 @@ async function finPartie() {
   } catch (err) {
     alert("Erreur lors de l'envoi ou la récupération des scores : " + err.message);
   }
-}
-
-
-async function afficherClassement() {
-  const liste = document.getElementById("liste-scores");
-  liste.innerHTML = ""; // Nettoie avant de recharger
-
-  const scores = await getTopScores();
-  scores.forEach(score => {
-    const li = document.createElement("li");
-    li.textContent = `${score.pseudo} - ${score.score}`;
-    liste.appendChild(li);
-  });
 }
 
 function afficherTopScores(scores) {
