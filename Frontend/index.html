@@ -46,7 +46,14 @@
       <ol id="liste-scores"></ol>
     </section>
 
-    <div id="plateau-jeu" class="plateau"></div>
+    <div style="position: relative; width: max-content; margin: 0 auto;">
+      <div id="plateau-jeu" class="plateau"></div>
+
+      <div id="next-piece-container" class="next-piece" style="position: absolute; top: 0; left: 105%;">
+        <h3>Prochaine pièce</h3>
+        <div id="next-piece-grid" class="next-piece-grid"></div>
+      </div>
+    </div>
 
     <div class="game-controls">
       <button id="start-btn" class="btn neon-btn">Start</button>

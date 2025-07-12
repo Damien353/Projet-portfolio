@@ -58,6 +58,40 @@ function genererNouvellePiece() {
   };
 }
 
+let nextPiece = genererNouvellePiece();
+
+function afficherProchainePiece(piece) {
+  const nextGrid = document.getElementById('next-piece-grid');
+  nextGrid.innerHTML = ''; // Vider l'ancienne grille
+
+  const taille = 4; // Grille 4x4 pour afficher la pièce
+
+  // Créer une mini grille 4x4
+  for (let y = 0; y < taille; y++) {
+    for (let x = 0; x < taille; x++) {
+      const caseDiv = document.createElement('div');
+      caseDiv.classList.add('case');
+      nextGrid.appendChild(caseDiv);
+    }
+  }
+
+  // Activer les cases correspondantes à la forme
+  const cases = nextGrid.querySelectorAll('.case');
+  piece.shape.forEach((ligne, dy) => {
+    ligne.forEach((val, dx) => {
+      if (val) {
+        const index = (dy * taille) + dx;
+        if (cases[index]) {
+          cases[index].classList.add('active');
+          cases[index].style.backgroundColor = piece.couleur || '#0ff';
+        }
+      }
+    });
+  });
+}
+
+afficherProchainePiece(nextPiece);
+
 function dessinerPiece() {
   const { shape, x, y, couleur } = pieceActuelle;
   const conteneur = document.getElementById("plateau-jeu");
@@ -257,8 +291,13 @@ function boucleJeu() {
       mettreAJourVitesse(nbLignes);
     }
 
-    // Génère une nouvelle pièce
-    pieceActuelle = genererNouvellePiece();
+    // Génère la nouvelle pièce à partir de celle en attente
+    pieceActuelle = nextPiece;
+    pieceActuelle.x = 3;
+    pieceActuelle.y = 0;
+    nextPiece = genererNouvellePiece();
+    afficherProchainePiece(nextPiece);
+
     if (estGameOver(pieceActuelle)) {
       clearInterval(intervalId);
       enCours = false;
