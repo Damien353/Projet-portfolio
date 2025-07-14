@@ -6,6 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tetris</title>
   <link rel="stylesheet" href="css/style.css" />
+  <script>
+    // Redirige vers login si pas de token
+    if (!localStorage.getItem('token')) {
+      window.location.href = 'login.html';
+    }
+  </script>
 </head>
 <body class="dark-theme">
 
@@ -14,27 +20,10 @@
     <div class="nav-left">
       <a href="ladder.html" class="btn neon-btn">Voir le classement</a>
       <a href="profile.html" class="btn neon-btn">Profil</a>
+      <a href="howto.html" class="btn neon-btn">Comment jouer</a>
     </div>
     <button id="logout-btn" class="btn neon-btn hidden">Déconnexion</button>
   </nav>
-
-  <!-- Connexion / Inscription -->
-  <section id="auth-container" class="card">
-    <h2 class="section-title">Connexion / Inscription</h2>
-    <form id="auth-form" class="form">
-      <label for="username">Pseudo :</label>
-      <input type="text" id="username" name="username" required />
-
-      <label for="password">Mot de passe :</label>
-      <input type="password" id="password" name="password" required />
-
-      <div class="form-buttons">
-        <button type="submit" id="submit-btn" class="btn neon-btn">Se connecter</button>
-        <button type="button" id="toggle-register" class="btn neon-btn">Créer un compte</button>
-      </div>
-    </form>
-    <div id="auth-message" class="auth-error"></div>
-  </section>
 
   <!-- Zone de jeu -->
   <main id="conteneur-jeu" class="hidden">
@@ -57,6 +46,24 @@
 
   <!-- Scripts -->
   <script type="module" src="./js/game.js"></script>
-  <script src="./js/auth.js"></script>
+
+  <script type="module">
+    import { verifierSessionOuRediriger } from './js/authUtils.js';
+
+    // Vérifier session à l'ouverture et rediriger si expirée ou absente
+    verifierSessionOuRediriger();
+
+    const logoutBtn = document.getElementById('logout-btn');
+    logoutBtn.classList.remove('hidden'); // rendre visible le bouton
+
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.href = 'login.html';
+    });
+
+    document.getElementById('conteneur-jeu').classList.remove('hidden');
+  </script>
+
 </body>
 </html>

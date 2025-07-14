@@ -2,57 +2,31 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Connexion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Connexion / Inscription - Tetris</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
-  <h1>Connexion</h1>
+<body class="dark-theme">
 
-  <form id="loginForm">
-    <label for="username">Pseudo :</label>
-    <input type="text" id="username" name="username" required /><br><br>
+  <main class="auth-container card">
+    <h2 class="section-title neon-text">Connexion / Inscription</h2>
 
-    <label for="password">Mot de passe :</label>
-    <input type="password" id="password" name="password" required /><br><br>
+    <form id="auth-form" class="form">
+      <label for="username">Pseudo :</label>
+      <input type="text" id="username" name="username" required />
 
-    <button type="submit">Se connecter</button>
-  </form>
+      <label for="password">Mot de passe :</label>
+      <input type="password" id="password" name="password" required />
 
-  <p id="message"></p>
+      <div class="form-buttons">
+        <button type="submit" id="submit-btn" class="btn neon-btn">Se connecter</button>
+        <button type="button" id="toggle-register" class="btn neon-btn">Créer un compte</button>
+      </div>
+    </form>
 
-  <script>
-    const form = document.getElementById('loginForm');
-    const message = document.getElementById('message');
+    <div id="auth-message" class="auth-error"></div>
+  </main>
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const username = form.username.value;
-      const password = form.password.value;
-
-      try {
-        const response = await fetch('/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password })
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          message.textContent = "✅ Connexion réussie !";
-          console.log("Token :", data.token);
-          // Tu peux stocker le token en localStorage si tu veux
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('username', data.user.username);
-        } else {
-          message.textContent = `❌ ${data.error}`;
-        }
-      } catch (err) {
-        console.error('Erreur:', err);
-        message.textContent = '❌ Erreur réseau ou serveur.';
-      }
-    });
-  </script>
+  <script type="module" src="js/auth.js"></script>
 </body>
 </html>

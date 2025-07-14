@@ -23,3 +23,17 @@ export function verifierSessionOuRediriger() {
     deconnexionAuto();
   }
 }
+
+export function handleLogout() {
+  const logoutBtn = document.getElementById("logout-btn");
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      window.location.href = "login.html";
+    });
+  }
+}
+
+handleLogout(); // Active automatiquement le bouton si présent
