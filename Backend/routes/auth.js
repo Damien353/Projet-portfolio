@@ -1,12 +1,12 @@
+require('dotenv').config();
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const {db, getAsync } = require('../db/database');
-
 const router = express.Router();
 
-// Clé secrète pour signer les tokens (à cacher plus tard avec dotenv)
-const SECRET_KEY = 'secret123';
+// Clé secrète pour signer les tokens
+const SECRET_KEY = process.env.SECRET_KEY;
 
 // ========== POST /api/register ==========
 router.post('/register', async (req, res) => {

@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
 -- Script de création de table
 CREATE TABLE IF NOT EXISTS scores (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id TEXT NOT NULL,
+    user_id INTEGER NOT NULL,
     score INTEGER NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id)
