@@ -164,10 +164,10 @@ document.addEventListener('DOMContentLoaded', () => {
           const newY = y + i;
           const newX = x + j;
 
-          // Vérifie su la pièce dépasse les limites ou entre en collision avec une pièce
+          // Vérifie si la pièce dépasse les limites ou entre en collision avec une pièce
           if (
             newY >= NB_LIGNES || // touche le bas
-            newX < 0 || newX >= NB_COLONNES || // hors bords horizontaux
+            newX < 0 || newX >= NB_COLONNES || // hors bords gauche ou droite
             newY >= 0 && plateau[newY][newX] !== 0 // touche une autre pièce
           ) {
             return true;
