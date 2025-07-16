@@ -9,14 +9,17 @@
 <body class="dark-theme">
   <nav class="top-bar">
     <a href="index.html" class="btn neon-btn">Retour au jeu</a>
-    <button id="logout-btn" class="btn neon-btn">Déconnexion</button>
   </nav>
 
   <main class="profile-container">
     <h1 class="profile-title">Mon Profil</h1>
-    <p><strong>Pseudo :</strong> <span id="profile-username"></span></p>
-    <p><strong>Meilleur score :</strong> <span id="profile-best-score">...</span></p>
+    <div class="profile-card">
+      <p><span class="label">👤 Pseudo :</span> <span id="profile-username" class="value">...</span></p>
+      <p><span class="label">🏆 Meilleur score :</span> <span id="profile-best-score" class="value">...</span></p>
+    </div>
   </main>
+
+  <button id="logout-btn" class="btn neon-btn logout-btn">Déconnexion</button>
 
   <script type="module" src="js/profile.js"></script>
   <script type="module" src="js/authUtils.js"></script>

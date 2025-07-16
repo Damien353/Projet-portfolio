@@ -5,6 +5,7 @@ body.dark-theme {
   margin: 0;
   padding: 0;
   text-align: center;
+  overflow-x: hidden;
 }
 
 .top-bar {
@@ -12,7 +13,7 @@ body.dark-theme {
   top: 20px;
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 0 20px;
   box-sizing: border-box;
   z-index: 10;
@@ -27,30 +28,77 @@ body.dark-theme {
   font-size: 1rem;
   cursor: pointer;
   text-transform: uppercase;
-  transition: 0.2s;
+  transition: 0.2s ease;
   text-shadow: 0 0 5px #0ff;
   box-shadow: 0 0 10px #0ff inset, 0 0 5px #0ff;
 }
 
 .neon-btn:hover {
   background-color: rgba(0, 255, 255, 0.1);
-  box-shadow: 0 0 15px #0ff, 0 0 5px #0ff inset;
+  box-shadow: 0 0 20px #0ff, 0 0 10px #0ff inset;
 }
 
 .profile-container {
   margin-top: 120px;
-  background-color: #111;
   padding: 30px;
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 12px;
-  box-shadow: 0 0 15px #0ff;
 }
 
 .profile-title {
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: #0ff;
-  text-shadow: 0 0 10px #0ff;
-  margin-bottom: 20px;
+  text-shadow: 0 0 15px #0ff;
+  margin-bottom: 30px;
+  animation: flicker 2s infinite;
 }
+
+.profile-card {
+  background-color: #111;
+  padding: 25px;
+  max-width: 420px;
+  margin: 0 auto;
+  border-radius: 16px;
+  box-shadow: 0 0 25px #0ff, 0 0 10px #0ff inset;
+  animation: glow-border 4s infinite linear;
+}
+
+.profile-card p {
+  font-size: 1.2rem;
+  margin: 20px 0;
+}
+
+.label {
+  color: #0ff;
+  font-weight: bold;
+  text-shadow: 0 0 8px #0ff;
+}
+
+.value {
+  color: #fff;
+  text-shadow: 0 0 5px #fff;
+}
+
+.logout-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  45% { opacity: 0.8; }
+  50% { opacity: 0.4; }
+  55% { opacity: 0.9; }
+}
+
+@keyframes glow-border {
+  0% {
+    box-shadow: 0 0 15px #0ff, 0 0 5px #0ff inset;
+  }
+  50% {
+    box-shadow: 0 0 25px #0ff, 0 0 10px #0ff inset;
+  }
+  100% {
+    box-shadow: 0 0 15px #0ff, 0 0 5px #0ff inset;
+  }
+}
+
