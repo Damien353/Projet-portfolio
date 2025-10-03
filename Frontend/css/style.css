@@ -311,3 +311,109 @@ h1, h2 {
 .how-to-play li {
   margin-bottom: 8px;
 }
+
+/* =========================
+   TOUCH CONTROLS - MASQUÉ PAR DÉFAUT
+   ========================= */
+.touch-controls {
+  display: none; /* masqué sur desktop */
+}
+
+/* =========================
+   TABLETTE LARGE (≤1200px)
+   ========================= */
+@media (max-width: 1200px) {
+  #game-container {
+    display: flex;
+    flex-direction: row; /* plateau + side panels + boutons */
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .plateau {
+    width: 80vw;
+    max-width: 400px;
+    aspect-ratio: 10 / 19;
+  }
+
+  .side-panel {
+    width: 90vw;
+    max-width: 200px;
+    margin: 5px 0;
+  }
+
+  .touch-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 10px;
+  }
+
+  .touch-controls button {
+    font-size: 2rem;
+    padding: 12px 18px;
+    border-radius: 12px;
+    background-color: #111;
+    color: #0ff;
+    border: 2px solid #0ff;
+    box-shadow: 0 0 10px #0ff;
+    cursor: pointer;
+    flex: 1 1 50px;
+  }
+
+  .touch-controls button:active {
+    background-color: rgba(0,255,255,0.2);
+    box-shadow: 0 0 15px #0ff inset;
+  }
+}
+
+/* =========================
+   TABLETTE / GRAND MOBILE (≤768px)
+   ========================= */
+@media (max-width: 768px) {
+  .game-title {
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 15px;
+    width: 100%;
+    word-break: break-word;
+  }
+
+  .plateau {
+    width: 90vw;
+    max-width: 350px;
+    padding: 5px;
+  }
+
+  .side-panel {
+    max-width: 250px;
+  }
+
+  #next-piece-grid {
+    width: 100%;
+    max-width: 120px;
+  }
+}
+
+/* =========================
+   PETIT MOBILE (≤480px)
+   ========================= */
+@media (max-width: 480px) {
+  #game-container {
+    flex-direction: column; /* empile plateau + panels + boutons */
+    align-items: center;
+  }
+
+  .touch-controls {
+    flex-direction: row; /* horizontal sous le plateau */
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 90vw;
+    max-width: 300px;
+    margin-top: 10px;
+    margin-left: 0;
+  }
+}

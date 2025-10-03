@@ -254,6 +254,42 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, { passive: false });
 
+  // Déplacer vers la gauche
+  window.moveLeft = function() {
+    let nouvelleX = pieceActuelle.x - 1;
+    if (!detectCollision(pieceActuelle, nouvelleX, pieceActuelle.y)) {
+      pieceActuelle.x = nouvelleX;
+      drawPlateau();
+      dessinerPiece();
+    }
+  };
+
+  // Déplacer vers la droite
+  window.moveRight = function() {
+    let nouvelleX = pieceActuelle.x + 1;
+    if (!detectCollision(pieceActuelle, nouvelleX, pieceActuelle.y)) {
+      pieceActuelle.x = nouvelleX;
+      drawPlateau();
+      dessinerPiece();
+    }
+  };
+
+  // Déplacer vers le bas
+  window.moveDown = function() {
+    let nouvelleY = pieceActuelle.y + 1;
+    if (!detectCollision(pieceActuelle, pieceActuelle.x, nouvelleY)) {
+      pieceActuelle.y = nouvelleY;
+      drawPlateau();
+      dessinerPiece();
+    }
+  };
+
+  // Rotation
+  window.rotatePiece = function() {
+    tournerPiece(pieceActuelle);
+    drawPlateau();
+    dessinerPiece();
+  };
 
   function demarrerPartie() {
     // Réinitialisations

@@ -27,17 +27,36 @@
 
   <!-- Zone de jeu -->
   <main id="conteneur-jeu" class="hidden">
+    <!-- Titre -->
     <h1 class="game-title neon-text">TETRIS</h1>
 
+    <!-- Conteneur principal : plateau + side panels + boutons -->
     <div id="game-container">
-      <div id="score-box" class="side-panel"> score : <span id="score">0</span></div>
+      
+      <!-- Side panel score -->
+      <div id="score-box" class="side-panel">
+        score : <span id="score">0</span>
+      </div>
+
+      <!-- Plateau -->
       <div id="plateau-jeu" class="plateau"></div>
+
+      <!-- Boutons tactiles (visible sur mobile) -->
+      <div id="touch-controls" class="touch-controls">
+        <button onclick="moveLeft()">⬅️</button>
+        <button onclick="rotatePiece()">⏫</button>
+        <button onclick="moveRight()">➡️</button>
+        <button onclick="moveDown()">⬇️</button>
+      </div>
+
+      <!-- Next piece panel -->
       <div id="next-piece-container" class="next-piece side-panel">
         <h3>Prochaine pièce</h3>
         <div id="next-piece-grid" class="next-piece-grid"></div>
       </div>
     </div>
 
+    <!-- Start/Pause -->
     <div class="game-controls">
       <button id="start-btn" class="btn neon-btn">Start</button>
       <button id="pause-btn" class="btn neon-btn" disabled>Pause</button>
